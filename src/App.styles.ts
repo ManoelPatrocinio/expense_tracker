@@ -7,7 +7,13 @@ export const Container = styled.div`
   padding: 0;
 `;
 export const Header = styled.header`
-  background-color: darkblue;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    180deg,
+    rgba(2, 0, 36, 1) 1%,
+    rgba(9, 9, 121, 1) 46%,
+    rgba(0, 35, 255, 1) 100%
+  );
   height: 9.375rem;
   text-align: center;
 `;
