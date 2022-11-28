@@ -8,16 +8,18 @@ O projeto foi desenvolvido durante o Desafio de 5 Projetos em 5 Dias Edição: R
 
 ## TECNOLOGIAS USADAS
 
-      * TypeScript
-      *Styled Components
-      *Html 5
-      *Css 3
+* React JS
+* TypeScript
+* Styled Components
+* Html 5
+* Css 3
 
 ## Melhorias
-     *Layout
+* Layout
 
 ## Melhorias Futuras
-     *Layout Mobile
+* Layout Mobile
+* Armazenar dados inseridos no Banco de Dados
 
 ## Layout
 ![sistema_financeiro](https://user-images.githubusercontent.com/47128362/136680371-2dd42541-2394-4c34-b6ad-d2b25d8fa79c.png)
