@@ -18,7 +18,6 @@ O projeto foi desenvolvido durante o Desafio de 5 Projetos em 5 Dias Edição: R
 * Layout
 
 ## Melhorias Futuras
-* Layout Mobile
 * Armazenar dados inseridos no Banco de Dados
 
 ## Layout
