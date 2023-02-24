@@ -1,7 +1,6 @@
-import * as C from "./styles";
 import { Item } from "../../types/Item";
-import { type } from "os";
-import { items } from "../../data/Items";
+import * as C from "./styles";
+
 import { TableItem } from "../TableItem";
 
 type Props = {
@@ -12,10 +11,10 @@ export const TableArea = ({ list }: Props) => {
     <C.Table>
       <thead>
         <tr>
-          <C.TableHeadColumn width={115}>Data</C.TableHeadColumn>
-          <C.TableHeadColumn width={130}>Categoria</C.TableHeadColumn>
-          <C.TableHeadColumn>Título</C.TableHeadColumn>
-          <C.TableHeadColumn width={150}>Valor</C.TableHeadColumn>
+          <C.TableHeadColumn width={25}>Data</C.TableHeadColumn>
+          <C.TableHeadColumn width={25}>Categoria</C.TableHeadColumn>
+          <C.TableHeadColumn width={25}>Título</C.TableHeadColumn>
+          <C.TableHeadColumn width={25}>Valor</C.TableHeadColumn>
         </tr>
       </thead>
       <tbody>

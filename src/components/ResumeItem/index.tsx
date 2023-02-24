@@ -1,4 +1,3 @@
-import { type } from "os";
 import * as C from "./styler";
 type Props = {
   title: string;

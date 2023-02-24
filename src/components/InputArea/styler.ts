@@ -8,10 +8,17 @@ export const Container = styled.div`
   margin-top: 20px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  @media (max-width: 540px) {
+    flex-direction: column !important;
+  }
 `;
 export const InputLabel = styled.label`
   flex: 1;
   margin: 10px;
+  @media (max-width: 540px) {
+    width: 80% !important;
+  }
 `;
 export const InputTitle = styled.div`
   font-weight: bold;
@@ -44,5 +51,11 @@ export const Button = styled.button`
   &:hover {
     background-color: blue;
     color: white;
+  }
+  @media (max-width: 540px) {
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    height: auto !important;
   }
 `;

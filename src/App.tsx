@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as C from "./App.styles";
-import { Item } from "./types/Item";
-import { Category } from "./types/Category";
-import { categories, categories as dataCategories } from "./data/categories";
-import { items as dataItems } from "./data/Items";
-import { getCorrentMonth, filterListByMonth } from "./helpers/dateFilter";
-import { TableArea } from "./components/TableArea";
 import { InfoArea } from "./components/InfoArea";
 import { InputArea } from "./components/InputArea";
+import { TableArea } from "./components/TableArea";
+import { items as dataItems } from "./data/Items";
+import { categories } from "./data/categories";
+import { filterListByMonth, getCorrentMonth } from "./helpers/dateFilter";
+import { Item } from "./types/Item";
 const App = () => {
   const [list, setList] = useState(dataItems); // lista com todos os item
   const [filteredList, setFilteredList] = useState<Item[]>([]);

@@ -1,7 +1,6 @@
-import { type } from "os";
-import * as C from "./styler";
 import { formatCurrentMonth } from "../../helpers/dateFilter";
 import { ResumeItem } from "../ResumeItem";
+import * as C from "./styler";
 
 type Props = {
   currentMonth: string;

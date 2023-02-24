@@ -1,6 +1,6 @@
 import { useState } from "react";
-import * as C from "./styler";
 import { Item } from "../../types/Item";
+import * as C from "./styler";
 
 import { categories } from "../../data/categories";
 
@@ -94,7 +94,7 @@ export const InputArea = ({ onAddItem }: Props) => {
           onChange={(e) => setValueField(parseFloat(e.target.value))}
         />
       </C.InputLabel>
-      <C.InputLabel>
+      <C.InputLabel id="btnAdd">
         <C.InputTitle>&nbsp;</C.InputTitle>
         <C.Button onClick={handleAddEvent}>Adicionar</C.Button>
       </C.InputLabel>
