@@ -1,6 +1,19 @@
 import styled from "styled-components";
 
-export const TableLine = styled.tr``;
+export const TableLine = styled.tr`
+  button{
+    width: 2rem;
+    height: 2rem;
+    
+    padding: 0;
+    margin: 0;
+
+    border: 0;
+    background: transparent;
+    cursor:pointer;
+  }
+
+`;
 export const TableColumn = styled.td`
   width: 25%;
   padding: 10px 0;

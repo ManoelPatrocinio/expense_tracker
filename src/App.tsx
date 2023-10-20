@@ -3,59 +3,73 @@ import * as C from "./App.styles";
 import { InfoArea } from "./components/InfoArea";
 import { InputArea } from "./components/InputArea";
 import { TableArea } from "./components/TableArea";
-import { items as dataItems } from "./data/Items";
 import { categories } from "./data/categories";
-import { filterListByMonth, getCorrentMonth } from "./helpers/dateFilter";
+import {getCurrentMonth } from "./helpers/dateFilter";
 import { Item } from "./types/Item";
+import { api } from "./lib/axios";
 const App = () => {
-  const [list, setList] = useState(dataItems); // lista com todos os item
-  const [filteredList, setFilteredList] = useState<Item[]>([]);
-  const [currentMonth, setCurrentMonth] = useState(getCorrentMonth()); //retorn o mes atual
+  const [list, setList] = useState<null | Item[]>(); // lista com todos os item
+  const [currentMonth, setCurrentMonth] = useState(getCurrentMonth()); //return o mes atual
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
 
-  // monitora a inserção de novo item(despesa, ou renda) e troca de mês
-  useEffect(() => {
-    setFilteredList(filterListByMonth(list, currentMonth));
-  }, [list, currentMonth]);
+  useEffect(()=>{
+    api.get(`/list_by_date/${currentMonth}`).then((response)=>{
+      setList(response.data.events);
+      console.log("response.data.events",response.data.events)
+    })
+  },[currentMonth])
 
   useEffect(() => {
     let expenseCount = 0;
     let incomeCount = 0;
 
-    for (let i in filteredList) {
-      if (categories[filteredList[i].category].expense) {
-        expenseCount += filteredList[i].value;
+    list?.map((item)=>{
+
+      if (categories[item.category].expense) {
+        expenseCount += item.value;
       } else {
-        incomeCount += filteredList[i].value;
+        incomeCount += item.value;
       }
-    }
+      return 0
+
+    })
     setExpense(expenseCount);
     setIncome(incomeCount);
-  }, [filteredList]);
 
-  const hendleMonthChange = (newMonth: string) => {
+  }, [list]);
+
+
+  const handleMonthChange = (newMonth: string) => {
     setCurrentMonth(newMonth);
   };
-  const hendleAddItem = (item: Item) => {
-    let newList = [...list];
-    newList.push(item);
-    setList(newList);
+  const handleAddItem = async (item: Item) => {
+   
+    await api
+    .post("/add_event",item)
+    .then((response) => {window.location.reload()} )
+    .catch((err) => {
+      console.error("ops! ocorreu um erro: " + err);
+    });
   };
   return (
     <C.Container>
       <C.Header>
-        <C.HeaderText>Sistemas Financeiro</C.HeaderText>
+        <C.HeaderText>Controle Financeiro</C.HeaderText>
       </C.Header>
       <C.Body>
         <InfoArea
           currentMonth={currentMonth}
-          onMonthChange={hendleMonthChange}
+          onMonthChange={handleMonthChange}
           income={income}
           expense={expense}
         />
-        <InputArea onAddItem={hendleAddItem} />
-        <TableArea list={filteredList} />
+        <InputArea onAddItem={handleAddItem} />
+        {list ? (
+          <TableArea list={list} />
+        ):(
+          <p>Sem lançamento</p>
+        )} 
       </C.Body>
     </C.Container>
   );

@@ -3,6 +3,7 @@ import { Item } from "../../types/Item";
 import * as C from "./styler";
 
 import { categories } from "../../data/categories";
+import { FormatDateYYMMDD } from "../../helpers/dateFilter";
 
 type Props = {
   onAddItem: (item: Item) => void;
@@ -36,7 +37,7 @@ export const InputArea = ({ onAddItem }: Props) => {
       alert(errors.join("\n"));
     } else {
       onAddItem({
-        date: new Date(dateField),
+        date: FormatDateYYMMDD( new Date(dateField)),
         category: categoryField,
         title: titleField,
         value: valueField,
