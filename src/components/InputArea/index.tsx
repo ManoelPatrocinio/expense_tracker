@@ -97,7 +97,7 @@ export const InputArea = ({ onAddItem }: Props) => {
       </C.InputLabel>
       <C.InputLabel id="btnAdd">
         <C.InputTitle>&nbsp;</C.InputTitle>
-        <C.Button onClick={handleAddEvent}>Adicionar</C.Button>
+        <C.Button onClick={handleAddEvent} type="submit">Adicionar</C.Button>
       </C.InputLabel>
     </C.Container>
   );
