@@ -47,7 +47,9 @@ const App = () => {
    
     await api
     .post("/add_event",item)
-    .then((response) => {window.location.reload()} )
+    .then((response) => {
+      window.location.reload()
+    })
     .catch((err) => {
       console.error("ops! ocorreu um erro: " + err);
     });

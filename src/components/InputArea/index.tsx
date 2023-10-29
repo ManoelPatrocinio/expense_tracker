@@ -1,73 +1,60 @@
-import { useState } from "react";
 import { Item } from "../../types/Item";
 import * as C from "./styler";
 
 import { categories } from "../../data/categories";
-import { FormatDateYYMMDD } from "../../helpers/dateFilter";
+import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 
 type Props = {
   onAddItem: (item: Item) => void;
 };
 
 export const InputArea = ({ onAddItem }: Props) => {
-  const [dateField, setDateField] = useState("");
-  const [categoryField, setCategoryField] = useState("");
-  const [titleField, setTitleField] = useState("");
-  const [valueField, setValueField] = useState(0);
-
+  const {
+    register,
+    formState: { errors },
+    reset,
+    handleSubmit,
+  } = useForm<Item>({
+    mode: "onTouched",
+  });
   let categoryKeys: string[] = Object.keys(categories);
 
-  const handleAddEvent = () => {
-    let errors: string[] = [];
-
-    if (isNaN(new Date(dateField).getTime())) {
-      errors.push("Data inválida!");
-    }
-    if (!categoryKeys.includes(categoryField)) {
-      errors.push("Categoria inválida!");
-    }
-    if (titleField === "") {
-      errors.push("Título vazio!");
-    }
-    if (valueField <= 0) {
-      errors.push("Valor inválido!");
-    }
-
-    if (errors.length > 0) {
-      alert(errors.join("\n"));
-    } else {
-      onAddItem({
-        date: FormatDateYYMMDD( new Date(dateField)),
-        category: categoryField,
-        title: titleField,
-        value: valueField,
-      });
-      clearFields();
-    }
-  };
-
-  const clearFields = () => {
-    setDateField("");
-    setCategoryField("");
-    setTitleField("");
-    setValueField(0);
+  async function handleAddEvent  (item: Item)  {
+    const valueFormated = item.value?.toString().replace(",", ".");
+    onAddItem({
+      ...item,
+      value: parseFloat( valueFormated)
+    });
+    reset()
   };
 
   return (
-    <C.Container>
+    <C.Container  onSubmit={handleSubmit(handleAddEvent)} >
       <C.InputLabel>
         <C.InputTitle>Data</C.InputTitle>
         <C.Input
           type="date"
-          value={dateField}
-          onChange={(e) => setDateField(e.target.value)}
+          {...register("date", {
+            required: "Obrigatório",
+          })}
+        />
+        <ErrorMessage
+          errors={errors}
+          name="date"
+          render={({ message }) => (
+            <small style={{color:"red"}}>
+              {message}
+            </small>
+          )}
         />
       </C.InputLabel>
       <C.InputLabel>
         <C.InputTitle>Categoria</C.InputTitle>
         <C.Select
-          value={categoryField}
-          onChange={(e) => setCategoryField(e.target.value)}
+          {...register("category", {
+            required: "Obrigatório",
+          })}
         >
           <>
             <option></option>
@@ -78,26 +65,68 @@ export const InputArea = ({ onAddItem }: Props) => {
             ))}
           </>
         </C.Select>
+        <ErrorMessage
+          errors={errors}
+          name="category"
+          render={({ message }) => (
+            <small style={{color:"red"}}>
+              {message}
+            </small>
+          )}
+        />
       </C.InputLabel>
       <C.InputLabel>
         <C.InputTitle>Título</C.InputTitle>
         <C.Input
           type="text"
-          value={titleField}
-          onChange={(e) => setTitleField(e.target.value)}
+          {...register("title", {
+            required: "Obrigatório",
+            minLength: {
+              value: 3,
+              message: "Min. 3 caracteres",
+            },
+            maxLength: {
+              value: 100,
+              message: "Limite  atingido",
+            },
+          })}
+        />
+        <ErrorMessage
+          errors={errors}
+          name="title"
+          render={({ message }) => (
+            <small style={{color:"red"}}>
+              {message}
+            </small>
+          )}
         />
       </C.InputLabel>
       <C.InputLabel>
         <C.InputTitle>Valor</C.InputTitle>
         <C.Input
-          type="number"
-          value={valueField}
-          onChange={(e) => setValueField(parseFloat(e.target.value))}
+          type="text"
+          {...register("value", {
+            required: "Obrigatório",
+            pattern: {
+              value: /^[\d,?!]+$/,
+              message:
+                "formato: 1,50 ou 1200,50",
+            }
+          })}
+        />
+        <ErrorMessage
+          errors={errors}
+          name="value"
+          render={({ message }) => (
+            <small style={{color:"red"}}>
+              {message}
+            </small>
+          )}
         />
       </C.InputLabel>
       <C.InputLabel id="btnAdd">
         <C.InputTitle>&nbsp;</C.InputTitle>
-        <C.Button onClick={handleAddEvent} type="submit">Adicionar</C.Button>
+        <C.Button type="submit">Adicionar</C.Button>
       </C.InputLabel>
     </C.Container>
   );
