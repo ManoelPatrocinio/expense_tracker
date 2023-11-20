@@ -29,11 +29,20 @@ export const ChartsContainer = styled.div`
 export const VerticalChart = styled.div`
   width: 100%;
   height: 50%;
+  
+  @media(max-width:580px){
+    height:100% !important;
+  }
 `;
 export const PizzaChart = styled.div`
   padding-top: 3rem;
   width: 50%;
   height: 50%;
+
+  @media(max-width:580px){
+    width:100% !important;
+    height:100%;
+  }
 `;
 
 
