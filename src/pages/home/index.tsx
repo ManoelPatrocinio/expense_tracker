@@ -7,7 +7,6 @@ import { categories } from "../../data/categories";
 import { getCurrentMonth } from "../../helpers/dateFilter";
 import { Item } from "../../types/Item";
 import { api } from "../../lib/axios";
-import { Link } from "react-router-dom";
 import { Header } from "../../components/Header";
 
 export const Home = () => {

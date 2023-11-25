@@ -10,8 +10,12 @@ import { VerticalBarChart } from "../../components/VerticalBarChart";
 import { PirChart } from "../../components/PieChart";
 import { Header } from "../../components/Header";
 
+type totalPercategory ={
+  category:string, value:number 
+}
 export const Charts = () => {
   const [list, setList] = useState<null | Item[]>(); // lista com todos os item
+  const [datasBycategory, setListByCategory] = useState<null | totalPercategory[]>(); 
   const [currentMonth, setCurrentMonth] = useState(getCurrentMonth()); //return o mes atual
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
@@ -22,6 +26,16 @@ export const Charts = () => {
       console.log("response.data.events",response.data.events)
     })
   },[currentMonth])
+
+
+
+  useEffect(()=>{
+    api.get(`/balance_by_category/${currentMonth}`).then((response)=>{
+      setListByCategory(response.data.balanceCategory);
+      console.log("response.data.events",response.data.balanceCategory)
+    })
+  },[currentMonth])
+
 
   useEffect(() => {
     let expenseCount = 0;
@@ -63,8 +77,8 @@ export const Charts = () => {
           </C.VerticalChart>
           <C.PizzaChart>
 
-          <PirChart/>
-          </C.PizzaChart>
+         { datasBycategory && <PirChart datas={datasBycategory}/>}
+          </C.PizzaChart >
         </C.ChartsContainer>
        
       </C.Body>
