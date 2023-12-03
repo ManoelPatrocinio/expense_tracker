@@ -15,13 +15,13 @@ export const InfoArea = ({
   income,
   expense,
 }: Props) => {
-  const hendlePrevMonth = () => {
+  const handlePrevMonth = () => {
     let [year, month] = currentMonth.split("-");
     let currentData = new Date(parseInt(year), parseInt(month) - 1, 1); //crio um date com a data atual
     currentData.setMonth(currentData.getMonth() - 1); //diminuo um mes
     onMonthChange(`${currentData.getFullYear()}-${currentData.getMonth() + 1}`);
   };
-  const hendleNextMonth = () => {
+  const handleNextMonth = () => {
     let [year, month] = currentMonth.split("-");
     let currentData = new Date(parseInt(year), parseInt(month) - 1, 1); //crio um date com a data atual
     currentData.setMonth(currentData.getMonth() + 1); //diminuo um mes
@@ -30,13 +30,13 @@ export const InfoArea = ({
   return (
     <C.Container>
       <C.MonthArea>
-        <C.MonthArrow onClick={hendlePrevMonth}>⬅️</C.MonthArrow>
+        <C.MonthArrow onClick={handlePrevMonth}>⬅️</C.MonthArrow>
         <C.MonthTitle>{formatCurrentMonth(currentMonth)}</C.MonthTitle>
-        <C.MonthArrow onClick={hendleNextMonth}>➡️</C.MonthArrow>
+        <C.MonthArrow onClick={handleNextMonth}>➡️</C.MonthArrow>
       </C.MonthArea>
       <C.ResumeArea>
-        <ResumeItem title={"Receitas"} value={income} />
-        <ResumeItem title={"Despesas"} value={expense} />
+        <ResumeItem title={"Receitas"} value={income}  color={"green"}/>
+        <ResumeItem title={"Despesas"} value={expense} color={"red"}/>
         <ResumeItem
           title={"Balanço"}
           value={income - expense}

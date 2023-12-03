@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { expensePerMonth } from "../../types/Item";
 
 ChartJS.register(
   CategoryScale,
@@ -21,15 +22,18 @@ ChartJS.register(
 );
 
 type Props ={
-    apiData: number[];
+    apiData: expensePerMonth[];
 }
 export const VerticalBarChart = ({apiData}:Props) => {
+
+  const labels = apiData.map(item => item.month);
+  const values = apiData.map(item => item.total);
   const data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: labels,
     datasets: [
       {
         label: "Despesas A.A",
-        data: apiData ,
+        data: values ,
         backgroundColor: "rgba(9, 9, 121, 1)",
       },
     ],

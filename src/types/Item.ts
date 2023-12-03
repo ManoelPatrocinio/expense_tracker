@@ -6,3 +6,11 @@ export type Item = {
   value: number;
 };
 
+
+export type totalPercategory ={
+  category:string, value:number 
+}
+
+export type expensePerMonth ={
+  month:string, total:number 
+}

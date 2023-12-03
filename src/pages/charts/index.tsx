@@ -4,18 +4,17 @@ import { InfoArea } from "../../components/InfoArea";
 
 import { categories } from "../../data/categories";
 import {getCurrentMonth } from "../../helpers/dateFilter";
-import { Item } from "../../types/Item";
+import { Item, expensePerMonth, totalPercategory } from "../../types/Item";
 import { api } from "../../lib/axios";
 import { VerticalBarChart } from "../../components/VerticalBarChart";
 import { PirChart } from "../../components/PieChart";
 import { Header } from "../../components/Header";
 
-type totalPercategory ={
-  category:string, value:number 
-}
+
 export const Charts = () => {
   const [list, setList] = useState<null | Item[]>(); // lista com todos os item
   const [datasBycategory, setListByCategory] = useState<null | totalPercategory[]>(); 
+  const [datasByMonth, setListByMonth] = useState<null | expensePerMonth[]>(); 
   const [currentMonth, setCurrentMonth] = useState(getCurrentMonth()); //return o mes atual
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
@@ -35,6 +34,15 @@ export const Charts = () => {
       console.log("response.data.events",response.data.balanceCategory)
     })
   },[currentMonth])
+
+  useEffect(()=>{
+    let now = new Date();
+    api.get(`/balance_by_year/${now.getFullYear()}`).then((response)=>{
+      setListByMonth(response.data.yearResult);
+      console.log("balance_by_year",response.data.yearResult)
+    })
+  },[currentMonth])
+
 
 
   useEffect(() => {
@@ -73,7 +81,7 @@ export const Charts = () => {
         />
         <C.ChartsContainer>
           <C.VerticalChart>
-            <VerticalBarChart apiData={[12, 20, 33, 98, 23, 32, 42, 34, 35, 20, 34, 25]}/>
+          {datasByMonth && <VerticalBarChart apiData={datasByMonth}/>}
           </C.VerticalChart>
           <C.PizzaChart>
 
