@@ -32,7 +32,7 @@ export const VerticalBarChart = ({apiData}:Props) => {
     labels: labels,
     datasets: [
       {
-        label: "Despesas A.A",
+        label: "Total: ",
         data: values ,
         backgroundColor: "rgba(9, 9, 121, 1)",
       },
@@ -44,7 +44,6 @@ export const VerticalBarChart = ({apiData}:Props) => {
       legend: {
         position: "top" as const,
       },
-      
     },
  
   };

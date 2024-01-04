@@ -22,7 +22,6 @@ export const Charts = () => {
   useEffect(()=>{
     api.get(`/list_by_date/${currentMonth}`).then((response)=>{
       setList(response.data.events);
-      console.log("response.data.events",response.data.events)
     })
   },[currentMonth])
 
@@ -31,15 +30,13 @@ export const Charts = () => {
   useEffect(()=>{
     api.get(`/balance_by_category/${currentMonth}`).then((response)=>{
       setListByCategory(response.data.balanceCategory);
-      console.log("response.data.events",response.data.balanceCategory)
     })
   },[currentMonth])
 
   useEffect(()=>{
-    let now = new Date();
-    api.get(`/balance_by_year/${now.getFullYear()}`).then((response)=>{
+    let chooseYear = currentMonth.split("-")
+    api.get(`/balance_by_year/${chooseYear[0]}`).then((response)=>{
       setListByMonth(response.data.yearResult);
-      console.log("balance_by_year",response.data.yearResult)
     })
   },[currentMonth])
 

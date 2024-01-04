@@ -1,6 +1,7 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import * as C from "./styler";
+import { categories } from '../../data/categories';
 
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
@@ -15,6 +16,7 @@ interface IPirChartProps {
 export function PirChart({ datas }: IPirChartProps) {
   const labels = datas.map(item => item.category);
   const values = datas.map(item => item.value);
+  const colors = labels.map(item => categories[item].color);
 
   const data = {
     labels: labels,
@@ -22,14 +24,7 @@ export function PirChart({ datas }: IPirChartProps) {
       {
         label: 'Por Categoria',
         data: values,
-        backgroundColor: [
-          '#008000',
-          '#808080',
-          '#0000ff',
-          '#ff0000',
-          '#00ffff',
-        ],
-
+        backgroundColor: colors,
       },
 
     ],
