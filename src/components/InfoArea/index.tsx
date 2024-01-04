@@ -1,4 +1,4 @@
-import { formatCurrentMonth } from "../../helpers/dateFilter";
+import { formatCurrentMonth, getCurrentYearMonth } from "../../helpers/dateFilter";
 import { ResumeItem } from "../ResumeItem";
 import * as C from "./styler";
 
@@ -19,13 +19,14 @@ export const InfoArea = ({
     let [year, month] = currentMonth.split("-");
     let currentData = new Date(parseInt(year), parseInt(month) - 1, 1); //crio um date com a data atual
     currentData.setMonth(currentData.getMonth() - 1); //diminuo um mes
-    onMonthChange(`${currentData.getFullYear()}-${currentData.getMonth() + 1}`);
+    onMonthChange(getCurrentYearMonth(currentData));
   };
   const handleNextMonth = () => {
     let [year, month] = currentMonth.split("-");
     let currentData = new Date(parseInt(year), parseInt(month) - 1, 1); //crio um date com a data atual
-    currentData.setMonth(currentData.getMonth() + 1); //diminuo um mes
-    onMonthChange(`${currentData.getFullYear()}-${currentData.getMonth() + 1}`);
+    currentData.setMonth(currentData.getMonth() + 1); //adiciona um mes
+    onMonthChange(getCurrentYearMonth(currentData));
+
   };
   return (
     <C.Container>

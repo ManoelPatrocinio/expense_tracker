@@ -4,21 +4,28 @@ import { InfoArea } from "../../components/InfoArea";
 import { InputArea } from "../../components/InputArea";
 import { TableArea } from "../../components/TableArea";
 import { categories } from "../../data/categories";
-import { getCurrentMonth } from "../../helpers/dateFilter";
+import { getCurrentYearMonth } from "../../helpers/dateFilter";
 import { Item } from "../../types/Item";
 import { api } from "../../lib/axios";
 import { Header } from "../../components/Header";
+import Swal from "sweetalert2";
 
 export const Home = () => {
   const [list, setList] = useState<null | Item[]>(); // lista com todos os item
-  const [currentMonth, setCurrentMonth] = useState(getCurrentMonth()); //return o mes atual
+  const [currentMonth, setCurrentMonth] = useState(getCurrentYearMonth()); //return o ano-mes atual
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
 
   useEffect(() => {
     api.get(`/list_by_date/${currentMonth}`).then((response) => {
       setList(response.data.events);
-      console.log("response.data.events", response.data.events)
+    }).catch((err)=>{
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: err.data.message,
+        showConfirmButton: true,
+      });
     })
   }, [currentMonth])
 
@@ -45,17 +52,37 @@ export const Home = () => {
   const handleMonthChange = (newMonth: string) => {
     setCurrentMonth(newMonth);
   };
+
+
   const handleAddItem = async (item: Item) => {
 
     await api
       .post("/add_event", item)
       .then((response) => {
-        window.location.reload()
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setTimeout(()=>{
+          window.location.reload()
+
+        },2000)
       })
       .catch((err) => {
         console.error("ops! ocorreu um erro: " + err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: err.data.message,
+          showConfirmButton: true,
+        });
       });
   };
+
+
   return (
     <C.Container>
       <Header/>
@@ -67,10 +94,10 @@ export const Home = () => {
           expense={expense}
         />
         <InputArea onAddItem={handleAddItem} />
-        {list ? (
+        {list && list.length > 0 ? (
           <TableArea list={list} />
         ) : (
-          <p>Sem lançamento</p>
+          <h3 className="noResult">Sem eventos...</h3>
         )}
       </C.Body>
     </C.Container>

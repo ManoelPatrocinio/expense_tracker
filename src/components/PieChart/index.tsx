@@ -25,8 +25,8 @@ export function PirChart({ datas }: IPirChartProps) {
         backgroundColor: [
           '#008000',
           '#808080',
-          '#ff0000',
           '#0000ff',
+          '#ff0000',
           '#00ffff',
         ],
 

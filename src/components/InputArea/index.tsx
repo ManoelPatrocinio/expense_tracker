@@ -24,7 +24,7 @@ export const InputArea = ({ onAddItem }: Props) => {
     const valueFormated = item.value?.toString().replace(",", ".");
     onAddItem({
       ...item,
-      value: parseFloat( valueFormated)
+      value: parseFloat(valueFormated)
     });
     reset()
   };

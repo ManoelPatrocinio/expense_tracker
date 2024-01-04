@@ -12,17 +12,15 @@ export const Body = styled.div`
   max-width: 980px;
   background-color: #fff;
   border-radius: 10px;
+
+  .noResult{
+    width:100%;
+
+    font-size:1.5rem;
+    text-align:center;
+    color:#050342;
+  }
 `;
 
-export const ChartsContainer = styled.div`
-  width:90vw;
-  height:100%;
-  padding:2rem;
 
-  display:flex;
-  flex-direction:column;
-  items-align: start;
-  justify-content: center;
-
-`;
 

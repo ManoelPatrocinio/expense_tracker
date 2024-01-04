@@ -3,7 +3,7 @@ import * as C from "./chats_style";
 import { InfoArea } from "../../components/InfoArea";
 
 import { categories } from "../../data/categories";
-import {getCurrentMonth } from "../../helpers/dateFilter";
+import {getCurrentYearMonth } from "../../helpers/dateFilter";
 import { Item, expensePerMonth, totalPercategory } from "../../types/Item";
 import { api } from "../../lib/axios";
 import { VerticalBarChart } from "../../components/VerticalBarChart";
@@ -15,7 +15,7 @@ export const Charts = () => {
   const [list, setList] = useState<null | Item[]>(); // lista com todos os item
   const [datasBycategory, setListByCategory] = useState<null | totalPercategory[]>(); 
   const [datasByMonth, setListByMonth] = useState<null | expensePerMonth[]>(); 
-  const [currentMonth, setCurrentMonth] = useState(getCurrentMonth()); //return o mes atual
+  const [currentMonth, setCurrentMonth] = useState(getCurrentYearMonth()); //return o mes atual
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
 

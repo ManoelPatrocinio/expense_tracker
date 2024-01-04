@@ -31,7 +31,7 @@ export const MonthTitle = styled.div`
 `;
 export const ResumeArea = styled.div`
   display: flex;
-  flex: 2; //para ter o doblo da area do que o monthArea
+  flex: 2; //para ter o dobro da area do que o monthArea
   justify-content: space-around;
   @media (max-width: 540px) {
     width: 100%;
