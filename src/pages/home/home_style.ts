@@ -8,6 +8,9 @@ export const Container = styled.div`
 `;
 
 export const Body = styled.div`
+  display:flex;
+  flex-direction:column;
+  align-items:start;
   margin: 0 auto 30px auto;
   max-width: 980px;
   background-color: #fff;
@@ -19,6 +22,17 @@ export const Body = styled.div`
     font-size:1.5rem;
     text-align:center;
     color:#050342;
+  }
+
+  #btn_reader_qrcode{
+    border: none;
+    color:#050342;
+    cursor: pointer;
+    font-size:1rem;
+    font-weight:500;
+    background-color:transparent;
+
+    margin: 1rem auto;
   }
 `;
 

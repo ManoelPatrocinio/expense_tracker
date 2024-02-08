@@ -1,17 +1,23 @@
 import styled from "styled-components";
 
 export const Container = styled.form`
-  background-color: #fff;
-  box-shadow: 0px 0px 5px #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+    width:100%;
+
+    background-color: #fff;
+    box-shadow: 0px 0px 5px #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    
+
   @media (max-width: 540px) {
     flex-direction: column !important;
+    
   }
+  
 `;
 export const InputLabel = styled.label`
   flex: 1;

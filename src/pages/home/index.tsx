@@ -9,12 +9,14 @@ import { Item } from "../../types/Item";
 import { api } from "../../lib/axios";
 import { Header } from "../../components/Header";
 import Swal from "sweetalert2";
+import { QRcode } from "../../components/QRCoder";
 
 export const Home = () => {
   const [list, setList] = useState<null | Item[]>(); // lista com todos os item
   const [currentMonth, setCurrentMonth] = useState(getCurrentYearMonth()); //return o ano-mes atual
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
+  const [openReaderQrCode, setOpenReaderQrCode] = useState<boolean>(false);
 
   useEffect(() => {
     api.get(`/list_by_date/${currentMonth}`).then((response) => {
@@ -93,7 +95,15 @@ export const Home = () => {
           income={income}
           expense={expense}
         />
+
         <InputArea onAddItem={handleAddItem} />
+        <button 
+          id="btn_reader_qrcode"
+          onClick={()=>setOpenReaderQrCode(old => !old)}
+        >Ler QR Code</button>
+        {openReaderQrCode &&(
+          <QRcode/>
+        )}
         {list && list.length > 0 ? (
           <TableArea list={list} />
         ) : (
